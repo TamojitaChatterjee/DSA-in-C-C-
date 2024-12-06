@@ -35,7 +35,7 @@ void insbeg(Node*&head, int value){
 
 **Note:** Here we use `Node*&head` here as head is not a fixed location, it may vary.
 
-**Time complexity: O(1)*
+*Time complexity: O(1)*
 
 b. **Insertion at end**
 - The first step is to create a new node with the given value. This new node is initialized with the next pointer pointing to NULL, indicating that it is the last   node in the list.
@@ -62,7 +62,7 @@ Node* temp = head;
 ```cpp
 temp->next = n;
 ```
-**Time complexity: O(n)*
+*Time complexity: O(n)*
 
 c. **Insertion at a certain position**
 - Creating a new node:
@@ -99,7 +99,7 @@ n->next = temp->next;
 temp->next = n;
 ```
 
-**Time complexity: O(n)*
+*Time complexity: O(n)*
 
 d. **Deletion at beginning**
 - Check for an empty list
@@ -118,7 +118,7 @@ head = head->next;
 ```cpp
 delete toDel;
 ```
-**Time complexity: O(1)*
+*Time complexity: O(1)*
 
 e. **Deletion at end**
 - Handling list with a single node
@@ -143,7 +143,7 @@ Node* toDel = temp->next;
 temp->next = NULL;
 delete toDel;
 ```
-**Time complexity: O(n)*
+*Time complexity: O(n)*
 
 f. **Deletion at a certain position**
 - Check for empty list condition (**do this to prevent segmentation faults**)
@@ -180,7 +180,7 @@ Node* toDel = temp->next;
 temp->next = temp->next->next;
 delete toDel;
 ```
-**Time complexity: O(n)*
+*Time complexity: O(n)*
 
 g. **Search**
 - Iterate through the list
@@ -199,7 +199,7 @@ while (temp != NULL) {
 
     printf("Value %d not found in the list.\n", value);
 ```
-**Time complexity: O(n)*
+*Time complexity: O(n)*
 
 h. **Display**
 - Check for an empty list
@@ -217,7 +217,7 @@ while (temp != NULL) {
     temp = temp->next;
 }
 ```
-**Time complexity: O(n)*
+*Time complexity: O(n)*
 
 i. **Reverse display**
 - Recursively traverse through the list
@@ -232,9 +232,9 @@ if (head == NULL) {
 reverseDisplay(head->next);
 printf("%d ", head->data);
 ```
-**Time complexity: O(n)*
+*Time complexity: O(n)*
 
-2. **Doubly linked list**
+### 2. **Doubly linked list**
 A `doubly linked list` is a list of elements where each element is connected to both the previous and the next elements. Each element is divided into three parts: `prev`, `Node`, and `next`.
 
 - The information held by a `Node` is called `data`. It may be of integer, character, or any other type.  
@@ -277,7 +277,7 @@ if (head != NULL) {
 ```cpp
 head = n;
 ```
-**Time complexity: O(1)*
+*Time complexity: O(1)*
 
 b. **Insertion at end**
 - A new node is created with the given value. If the list is empty (`head == NULL`), the new node becomes the head of the list.
@@ -299,7 +299,7 @@ while (temp->next != NULL) {
 temp->next = n;
 n->prev = temp;
 ```
-**Time complexity: O(n)*
+*Time complexity: O(n)*
 
 c. **Insertion at a position**
 - If the position is 1, the function delegates to `insbeg` as it's equivalent to inserting at the beginning.
@@ -329,7 +329,7 @@ if (curr->next != NULL) {
 }
 curr->next = n;
 ```
-**Time complexity: O(n)*
+*Time complexity: O(n)*
 
 d. **Deletion at beginning**
 - If the list is empty (`head == NULL`), an error message is displayed.
@@ -373,7 +373,7 @@ temp->prev->next = NULL;
 ```cpp
 delete temp;
 ```
-**Time complexity: O(n)*
+*Time complexity: O(n)*
 
 f. **Deletion at a specific position**
 - If the position is 1, the function delegates to `delbeg`.
@@ -405,7 +405,7 @@ if (temp->next != NULL) {
 ```cpp
 delete temp;
 ```
-**Time complexity: O(n)*
+*Time complexity: O(n)*
 
 g. **Display**
 - A temporary pointer is used to traverse the list and print the `data` of each node
@@ -417,7 +417,7 @@ while (temp != NULL) {
 }
 printf("\n");
 ```
-**Time complexity: O(n)*
+*Time complexity: O(n)*
 
 h. **Reverse display**
 - A temporary pointer is used to traverse to the last node. Starting from the last node, the list is printed in reverse order by following the `prev` pointers.
@@ -432,7 +432,7 @@ while (temp != NULL) {
 }
 printf("\n");
 ```
-**Time complexity: O(n)*
+*Time complexity: O(n)*
 
 i. **Search**
 - A temporary pointer is used to traverse the list. If the `data` of any node matches the key, the function returns `true`. If the end of the list is reached without finding the key, the function returns `false`.
@@ -446,7 +446,7 @@ while (temp != NULL) {
 }
 return false;
 ```
-**Time complexity: O(n)*
+*Time complexity: O(n)*
 
 3. **Circular linked list**
 4. **Stacks using SLL**
