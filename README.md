@@ -1,4 +1,4 @@
-# DSA-in-C-Cpp-
+### DSA-in-C-Cpp-
 This repository provides us with codes for basic Data Structures implemented in C++ but using header files #include&lt;stdio.h> and #include&lt;stdlib.h>
 
 The logics for individual data structures have been added as well for clearer understanding
@@ -448,15 +448,270 @@ return false;
 ```
 *Time complexity: O(n)*
 
-3. **Circular linked list**
-4. **Stacks using SLL**
-5. **Queues using SLL**
-6. **Binary trees**
-7. **Character binary tree**
-8. **Binary search tree**
-9. **Priority queues using max heap**
-10. **Hashing using linear probing**
-11. **Hashing using quadratic probing**
-12. **Hashing using separate chaining**
-13. **Graphs using adjacency matrix**
-14. **Graphs using adjacency lists**
+### 3. **Circular linked list**
+A **circular linked list** is a variation of a linked list where the last element of the list is connected to the first element, forming a circular structure. Each element is divided into two parts: `Node` and `next`.
+
+- The information held by a `Node` is called `data`. It may be of integer, character, or any other type.  
+- The `next` pointer of a node points to the next element in the list. In the case of the last node, it points back to the first node instead of `NULL`.  
+
+The **head** represents the starting node of the list, while the **tail** is the last node, which links back to the head.
+
+A circular linked list is preferred over a singly linked list in scenarios where circular traversal is required. For example:
+- Implementing buffers or queues in systems with continuous data flow.
+- Simplifying traversal in certain algorithms since we can move seamlessly from the last node back to the first.
+
+However, care must be taken to avoid infinite loops during traversal due to the circular nature of the list.
+
+**Node structure**
+```cpp
+class Node {
+public:
+    int data;   // Stores the data
+    Node* next; // Points to the next node in the circular list
+    
+    Node(int value) {
+        data = value;
+        next = this; // Points to itself by default, creating a circular reference
+    }
+};
+```
+a. **Insertion at beginning**
+- Create new node with given value
+```cpp
+Node* n = new Node(val);
+```
+- check for empty list; if so, make the new node point at itself
+```cpp
+if (head == NULL) {
+    n->next = n;
+    head = n;
+}
+```
+- traverse through the list to find the last node
+```cpp
+Node* temp = head;
+while (temp->next != head) {
+    temp = temp->next;
+}
+```
+- make the last node point to the new node
+```cpp
+temp->next = n;
+```
+- make new node point to head
+```cpp
+n->next = head;
+```
+- update head to new node (this completes the list)
+```cpp
+head = n;
+```
+*Time complexity: O(n)*
+
+b. **Insertion at end**
+- Create new node with given value
+```cpp
+Node* n = new Node(val);
+```
+- Check for empty list
+```cpp
+if (head == NULL) {
+    insbeg(head, val);
+    return;
+}
+```
+- Traverse to find last node
+```cpp
+Node* temp = head;
+while (temp->next != head) {
+    temp = temp->next;
+}
+```
+- Make last node point to new node
+```cpp
+temp->next = n;
+```
+- Make new node point to head
+```cpp
+n->next = head;
+```
+*Time complexity: O(n)*
+
+c. **Insertion at a certain position**
+- Check for validity of the position
+```cpp
+if (pos < 1) {
+    printf("Invalid position!\n");
+    return;
+}
+```
+- If `pos==1`, call `insbeg`
+```cpp
+if (pos == 1) {
+    insbeg(head, val);
+    return;
+}
+```
+- Create a new node `n` and initialize `curr` to `head`
+```cpp
+Node* curr = head;
+Node* n = new Node(val);
+```
+- Iterate to the desired position
+```cpp
+for (int i = 1; i < pos - 1 && curr->next != head; i++) {
+    curr = curr->next;
+}
+```
+- Insert at the desired position
+```cpp
+n->next = curr->next;
+curr->next = n;
+```
+*Time complexity: O(n)*
+
+d. **Deletion at beginning**
+- Check for empty list
+```cpp
+if (head == NULL) {
+    printf("List is empty\n");
+    return;
+}
+```
+- Traverse to last node
+```cpp
+Node* temp = head;
+while (temp->next != head) {
+    temp = temp->next;
+}
+```
+- Store head to a temporary variable `toDel`
+```cpp
+Node* toDel = head;
+```
+- Point last node to second node
+```cpp
+temp->next = head->next;
+```
+- Update `head` pointer to second node
+```cpp
+head = head->next;
+```
+- Delete original head node
+```cpp
+delete toDel;
+```
+e. **Deletion at end**
+- Check for empty list
+```cpp
+if (head == NULL) {
+    printf("List is empty\n");
+    return;
+}
+```
+- Check for single-element list
+```cpp
+if (head->next == head) { // Single node
+    delete head;
+    head = NULL;
+    return;
+}
+```
+- Traverse to second-last node
+```cpp
+Node* temp = head;
+while (temp->next->next != head) {
+    temp = temp->next;
+}
+```
+- Store last node to a temporary variable
+```cpp
+Node* toDel = temp->next;
+```
+- Make the node before the last node point to the head
+```cpp
+temp->next = head;
+```
+- Delete the last node
+```cpp
+delete toDel;
+```
+f. **Deletion at a certain position**
+- Check for empty list
+```cpp
+if (head == NULL) {
+    printf("List is empty\n");
+    return;
+}
+```
+- Check for single-element list
+```cpp
+if (pos == 1) {
+    delbeg(head);
+    return;
+}
+```
+- Initialize `curr` to head
+```cpp
+Node* curr = head;
+```
+- Traverse to the node before the node to be deleted
+```cpp
+for (int i = 1; i < pos - 1 && curr->next != head; i++) {
+    curr = curr->next;
+}
+```
+- Check if the desired position is out of bounds
+```cpp
+if (curr->next == head) {
+    printf("Position out of bounds\n");
+    return;
+}
+```
+- Node to be deleted is stored in a temporary variable
+```cpp
+Node* toDel = curr->next;
+```
+- Makes the node before the deleted node point to the node after the deleted node
+```cpp
+curr->next = curr->next->next;
+```
+- Deletes the node that was removed from the list
+```cpp
+delete toDel;
+```
+*Time complexity: O(n)*
+
+g. **Display**
+- Check for empty list
+```cpp
+if (head == NULL) {
+    printf("List is empty\n");
+    return;
+}
+```
+- Initialize `temp` pointer to the `head` of the list
+```cpp
+Node* temp = head;
+```
+- Use a `do-while` loop to iterate through the list (**We use a `do-while` loop here as it makes sure that the function is executed atleast once, even if the list is empty**)
+```cpp
+do {
+    printf("%d ", temp->data);
+    temp = temp->next;
+} while (temp != head);
+printf("\n");
+```
+*Time complexity: O(n)*
+
+### 4. **Stacks using SLL**
+### 5. **Queues using SLL**
+### 6. **Binary trees**
+### 7. **Character binary tree**
+### 8. **Binary search tree**
+### 9. **Priority queues using max heap**
+### 10. **Hashing using linear probing**
+### 11. **Hashing using quadratic probing**
+### 12. **Hashing using separate chaining**
+### 13. **Graphs using adjacency matrix**
+### 14. **Graphs using adjacency lists**
