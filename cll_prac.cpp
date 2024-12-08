@@ -152,29 +152,6 @@ void display(Node* head) {
     printf("\n");
 }
 
-void revdisplay(Node* head) {
-    if (head == NULL) {
-        printf("List is empty\n");
-        return;
-    }
-
-    Node* temp = head;
-    do {
-        temp = temp->next;
-    } while (temp->next != head);
-
-    Node* last = temp;
-    do {
-        printf("%d ", last->data);
-        temp = head;
-        while (temp->next != last) {
-            temp = temp->next;
-        }
-        last = temp;
-    } while (last != head);
-    printf("%d\n", head->data);
-}
-
 // Menu-driven program
 int main() {
     Node* head = NULL;
@@ -189,8 +166,7 @@ int main() {
         printf("5. Delete from end\n");
         printf("6. Delete at position\n");
         printf("7. Display\n");
-        printf("8. Reverse display\n");
-        printf("9. Exit\n");
+        printf("8. Exit\n");
 
         printf("Enter your choice: ");
         scanf("%d", &choice);
@@ -241,10 +217,6 @@ int main() {
             break;
 
         case 8:
-            revdisplay(head);
-            break;
-
-        case 9:
             printf("Exiting...\n");
             return 0;
 
