@@ -1315,18 +1315,6 @@ void display() {
         - Mark the neighbor as visited.
         - Enqueue the neighbor.
 
-*Pseudocode*
-BFS(start_node):
-  queue.enqueue(start_node)
-  mark start_node as visited
-
-  while queue is not empty:
-    current_node = queue.dequeue()
-    for each neighbor of current_node:
-      if neighbor is not visited:
-        mark neighbor as visited
-        queue.enqueue(neighbor)
-
 ### 14. **Graphs - DFS**
 **Depth-First Search** `DFS` explores as deep as possible along a branch before backtracking. It's like a depth-wise exploration of the graph, going as far as possible along a path before turning back.
 
@@ -1336,10 +1324,3 @@ BFS(start_node):
     - Mark the current node as visited.
     - For each unvisited neighbor of the current node:
     - Recursively call the DFS function on the neighbor.
-
-*Pseudocode*
-DFS(node):
-  mark node as visited
-  for each neighbor of node:
-    if neighbor is not visited:
-      DFS(neighbor)
