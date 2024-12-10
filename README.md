@@ -1195,6 +1195,7 @@ void display() {
 
 ### 11. **Hashing using quadratic probing**
 Hash function: `hash(key, i) = (hash(key) + i²) % table_size`
+
 The basic logic of all functions remains the same, the major difference is in the hash function and the way clustering is dealt with.
 
 ### 12. **Hashing using separate chaining**
@@ -1303,7 +1304,7 @@ void display() {
 }
 ```
 ### 13. **Graphs - BFS**
-**Breadth-First Search** `BFS` explores all the neighbor nodes at the present depth prior to moving on to the next depth level. It's like a breadth-wise exploration of the graph, level by level. It is a type of **level-order traversal**.
+**Breadth-First Search** or `BFS` explores all the neighbor nodes at the present depth prior to moving on to the next depth level. It's like a breadth-wise exploration of the graph, level by level. It is a type of **level-order traversal**.
 
 - Mark all nodes as unvisited.
 - Enqueue the starting node into a queue.
@@ -1316,7 +1317,7 @@ void display() {
         - Enqueue the neighbor.
 
 ### 14. **Graphs - DFS**
-**Depth-First Search** `DFS` explores as deep as possible along a branch before backtracking. It's like a depth-wise exploration of the graph, going as far as possible along a path before turning back.
+**Depth-First Search** or `DFS` explores as deep as possible along a branch before backtracking. It's like a depth-wise exploration of the graph, going as far as possible along a path before turning back.
 
 - Mark all nodes as unvisited.
 - Choose a starting node.
