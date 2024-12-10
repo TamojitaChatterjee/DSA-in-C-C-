@@ -1198,5 +1198,109 @@ Hash function: `hash(key, i) = (hash(key) + i²) % table_size`
 The basic logic of all functions remains the same, the major difference is in the hash function and the way clustering is dealt with.
 
 ### 12. **Hashing using separate chaining**
+Hashing with separate chaining is a collision resolution technique where each slot in the hash table points to a linked list. When a collision occurs, the new element is added to the end of the corresponding linked list, avoiding data loss and maintaining efficient insertion, search, and deletion operations.
+
+Hash function: `hash(key) = key % table_size`
+
+a. **Insertion**
+- Calculates the initial index where the element should be placed.
+- Uses the modulo operation to map the key to an index within the hash table's size.
+```cpp
+int hashFunction(int key) {
+    return key % TABLE_SIZE;
+}
+```
+- *Calculate the index*: Use the hash function to determine the initial index.
+- *Create a new node*: Allocate memory for a new node and store the key in its data field.
+- *Insert at the beginning*: Insert the new node at the beginning of the linked list at the calculated index. This is efficient as it avoids traversing the entire list to find the end.
+```cpp
+void insert(int key) {
+    int index = hashFunction(key);
+    Node* newNode = new Node(key);
+
+    // Insert at the beginning of the linked list
+    newNode->next = table[index];
+    table[index] = newNode;
+}
+```
+
+b. **Search**
+- *Calculate the initial index*: The `hashFunction` is called to determine the initial index `index` where the element `key` might be located.
+- *Traverse the linked list*: A pointer `temp` is initialized to point to the head of the linked list at index `index`.
+- *Search loop*: A `while` loop is used to iterate through the linked list:
+    - It checks if the current node `temp` is not NULL.
+    - If `temp` is not NULL, it compares the `data` field of the current node with the `key` being searched.
+    - If a match is found, the function returns `true`.
+    - If a match is not found, the temp pointer is moved to the next node (`temp = temp->next`).
+- *Not found*: If the loop finishes without finding a match, the function returns `false`.
+```cpp
+bool search(int key) {
+    int index = hashFunction(key);
+    Node* temp = table[index];
+
+    while (temp != NULL) {
+        if (temp->data == key) {
+            return true; // Key found
+        }
+        temp = temp->next;
+    }
+    return false; // Key not found
+}
+```
+
+c. **Remove**
+- *Calculate the initial index*: The `hashFunction` is called to determine the initial index `index` where the element `key` might be located.
+- *Traverse and find the node*: Two pointers, `temp` and `prev`, are used to traverse the linked list:
+    - `temp` points to the current node.
+    - `prev` points to the previous node.
+    - The loop iterates until either the end of the list is reached (`temp == NULL`) or the node with the key is found (`temp->data == key`).
+- *Remove the node*:
+    - Head node: If the node to be removed is the head (`prev == NULL`), the `table[index]` pointer is updated to point to the next node.
+    - Middle or end node: If the node to be removed is not the head, the next pointer of the previous node `(prev->next)` is updated to point to the node after the one being removed.
+- *Free memory*: The memory allocated to the removed node (`temp`) is freed using `delete temp`.
+- *Not found*: If the loop finishes without finding the key, a message is printed indicating that the key was not found in the hash table.
+```cpp
+void remove(int key) {
+    int index = hashFunction(key);
+    Node* temp = table[index];
+    Node* prev = NULL;
+
+    while (temp != NULL && temp->data != key) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (temp == NULL) {
+        printf("Key %d not found in the hash table.\n", key);
+        return;
+    }
+
+    // Remove the node
+    if (prev == NULL) { // If the key is at the head
+        table[index] = temp->next;
+    } else { // If the key is in the middle or end
+        prev->next = temp->next;
+    }
+
+    delete temp;
+    printf("Removed %d from the hash table.\n", key);
+}
+```
+d. **Display**
+- Iterate through each slot of table
+- Print elements of linked list in that slot
+```cpp
+void display() {
+    for (int i = 0; i < TABLE_SIZE; i++) {
+        printf("Slot %d: ", i);
+        Node* temp = table[i];
+        while (temp != NULL) {
+            printf("%d -> ", temp->data);
+            temp = temp->next;
+        }
+        printf("NULL\n");
+    }
+}
+```
 ### 13. **Graphs using adjacency matrix**
 ### 14. **Graphs using adjacency lists**
