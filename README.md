@@ -1302,5 +1302,44 @@ void display() {
     }
 }
 ```
-### 13. **Graphs using adjacency matrix**
-### 14. **Graphs using adjacency lists**
+### 13. **Graphs - BFS**
+**Breadth-First Search** `BFS` explores all the neighbor nodes at the present depth prior to moving on to the next depth level. It's like a breadth-wise exploration of the graph, level by level. It is a type of **level-order traversal**.
+
+- Mark all nodes as unvisited.
+- Enqueue the starting node into a queue.
+- Loop:
+    - While the queue is not empty:
+    - Dequeue a node from the queue.
+    - Mark the dequeued node as visited.
+    - For each unvisited neighbor of the dequeued node:
+        - Mark the neighbor as visited.
+        - Enqueue the neighbor.
+
+*Pseudocode*
+BFS(start_node):
+  queue.enqueue(start_node)
+  mark start_node as visited
+
+  while queue is not empty:
+    current_node = queue.dequeue()
+    for each neighbor of current_node:
+      if neighbor is not visited:
+        mark neighbor as visited
+        queue.enqueue(neighbor)
+
+### 14. **Graphs - DFS**
+**Depth-First Search** `DFS` explores as deep as possible along a branch before backtracking. It's like a depth-wise exploration of the graph, going as far as possible along a path before turning back.
+
+- Mark all nodes as unvisited.
+- Choose a starting node.
+- Recursive Function:
+    - Mark the current node as visited.
+    - For each unvisited neighbor of the current node:
+    - Recursively call the DFS function on the neighbor.
+
+*Pseudocode*
+DFS(node):
+  mark node as visited
+  for each neighbor of node:
+    if neighbor is not visited:
+      DFS(neighbor)
