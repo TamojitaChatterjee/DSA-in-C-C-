@@ -1112,7 +1112,91 @@ void heapifyDown(int index) {
 |                 Compares with parent                  | Compares with children           |
 
 ### 10. **Hashing using linear probing**
+Hash function: `hash(key, i) = (hash(key) + i) % table_size`
+
+a. **Insert**
+- Calculate the initial index where the element should be placed.
+- Use the modulo operation to map the key to an index within the hash table's size.
+```cpp
+int hash(int x) {
+    return x % size;
+}
+```
+- Linear probing
+    - Start from the initial index calculated by the hash function.
+    - Check if current slot is empty
+        - If empty, insert element and exit
+        - If not, move to the next slot
+    - Continue the process until an empty slot is found or the entire table is checked
+```cpp
+void insert(int x) {
+    int idx = hash(x);
+    while (arr[idx] != -1) {
+        idx = (idx + 1) % size;
+    }
+    arr[idx] = x;
+}
+```
+
+b. **Delete**
+- Calculate the initial index where the element to be deleted might be located.
+- Linear probing
+    - Start from the initial index.
+    - Check if the current slot contains the element to be deleted
+        - If found, marks the slot as empty (-1).
+        - If not, move to the next slot
+    - Continue this process until the element is found or an empty slot is encountered.
+```cpp
+void del(int x) {
+    int idx = hash(x);
+    while (arr[idx] != -1) {
+        if (arr[idx] == x) {
+            arr[idx] = -1;
+            return;
+        }
+        idx = (idx + 1) % size;
+    }
+}
+```
+
+c. **Search**
+- Calculate the initial index where the element to be searched might be located.
+- Linear probing
+    - Start from the initial index.
+    - Check if the current slot contains the element to be searched.
+        - If found, returns true.
+        - If not, move to the next slot
+    - Continue this process until the element is found or an empty slot is encountered.
+```cpp
+bool Search(int x) {
+    int idx = hash(x);
+    while (arr[idx] != -1) {
+        if (arr[idx] == x) {
+            return true;
+        }
+        idx = (idx + 1) % size;
+    }
+    return false;
+}
+```
+
+d. **Display**
+- Iterate through the array and print the key-value pairs
+```cpp
+void display() {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] != -1) {
+            printf("[%d]: %d\n", i, arr[i]);
+        }
+    }
+}
+```
+*The basic idea of hashing is so that the time complexity approaches O(1)*
+
 ### 11. **Hashing using quadratic probing**
+Hash function: `hash(key, i) = (hash(key) + i²) % table_size`
+The basic logic of all functions remains the same, the major difference is in the hash function and the way clustering is dealt with.
+
 ### 12. **Hashing using separate chaining**
 ### 13. **Graphs using adjacency matrix**
 ### 14. **Graphs using adjacency lists**
